@@ -1,2 +1,3 @@
 .venv/
 mypage/mypage/__pycache__/
+mypage/db.sqlite3
