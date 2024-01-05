@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 monthly_challenges = {
     "january": "This is the month January",
@@ -15,6 +15,8 @@ monthly_challenges = {
     "november": "This is the month November",
     "december": "This is the month December",
 }
+
+
 # Create your views here.
 def monthly_challenge(request, month):
     try:
@@ -23,5 +25,11 @@ def monthly_challenge(request, month):
         return HttpResponseNotFound("This month does not exist.")
     return HttpResponse(challenge_text)
 
+
 def monthly_challenge_by_number(request, month):
-    return HttpResponse(month)
+    months = list(monthly_challenges.keys())
+    if month > len(months):
+        return HttpResponseNotFound("Invalid month")
+    redirect_month = months[month - 1]
+
+    return HttpResponseRedirect(f"/challenges/{redirect_month}")
