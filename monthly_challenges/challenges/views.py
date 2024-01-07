@@ -30,24 +30,29 @@ def reverse_month_path(redirect_month):
 
 # Create your views here.
 def index(request):
-    list_items = ""
     months = month_keys()
-    for month in months:
-        reverse_month = reverse_month_path(month)
-        capitalized_month = month.capitalize()
-        list_items += f"<li><a href='{reverse_month}'>{capitalized_month}</a></li>"
-    response_data = f"<ul>{list_items}</ul>"
-    return HttpResponse(response_data)
+
+    return render(
+        request,
+        "challenges/index.html",
+        {
+            "months": months,
+        },
+    )
 
 
 def monthly_challenge(request, month):
     try:
         challenge_text = monthly_challenges[month]
         # response_data = render_to_string("challenges/challenge.html")
-        return render(request, "challenges/challenge.html", {
-            "challenge_text": challenge_text,
-            "month_text": month,
-            })
+        return render(
+            request,
+            "challenges/challenge.html",
+            {
+                "challenge_text": challenge_text,
+                "month_text": month,
+            },
+        )
     except:
         return HttpResponseNotFound("<h1>This month does not exist.</h1>")
 
