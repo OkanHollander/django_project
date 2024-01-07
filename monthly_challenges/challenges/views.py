@@ -18,7 +18,26 @@ monthly_challenges = {
 }
 
 
+def month_keys():
+    months = list(monthly_challenges.keys())
+    return months
+
+
+def reverse_month_path(redirect_month):
+    return reverse("monthly_challenge", args=[redirect_month])
+
 # Create your views here.
+def index(request):
+    list_items = ""
+    months = month_keys()
+    for month in months:
+        reverse_month = reverse_month_path(month)
+        capitalized_month = month.capitalize()
+        list_items += f"<li><a href='{reverse_month}'>{capitalized_month}</a></li>"
+    response_data = f"<ul>{list_items}</ul>"
+    return HttpResponse(response_data)
+
+
 def monthly_challenge(request, month):
     try:
         challenge_text = monthly_challenges[month]
@@ -29,10 +48,10 @@ def monthly_challenge(request, month):
 
 
 def monthly_challenge_by_number(request, month):
-    months = list(monthly_challenges.keys())
+    months = month_keys()
     if month > len(months):
         return HttpResponseNotFound("Invalid month")
     redirect_month = months[month - 1]
-    redirect_path = reverse("monthly_challenge", args=[redirect_month])
+    redirect_path = reverse_month_path(redirect_month)
 
     return HttpResponseRedirect(redirect_path)
