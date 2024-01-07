@@ -27,6 +27,10 @@ def month_keys():
 def reverse_month_path(redirect_month):
     return reverse("monthly_challenge", args=[redirect_month])
 
+# function that capitalize the first letter of a string
+def capitalize_first_leter(s):
+    return s[0].upper() + s[1:]
+
 # Create your views here.
 def index(request):
     list_items = ""
@@ -43,7 +47,10 @@ def monthly_challenge(request, month):
     try:
         challenge_text = monthly_challenges[month]
         # response_data = render_to_string("challenges/challenge.html")
-        return render(request, "challenges/challenge.html")
+        return render(request, "challenges/challenge.html", {
+            "challenge_text": challenge_text,
+            "month_text": capitalize_first_leter(month),
+            })
     except:
         return HttpResponseNotFound("<h1>This month does not exist.</h1>")
 
