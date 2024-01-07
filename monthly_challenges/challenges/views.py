@@ -4,18 +4,18 @@ from django.urls import reverse
 from django.template.loader import render_to_string
 
 monthly_challenges = {
-    "january": "This is the month January",
-    "February": "This is the month February",
-    "march": "This is the month March",
-    "april": "This is the month April",
-    "may": "This is the month May",
-    "june": "This is the month June",
-    "july": "This is the month July",
-    "august": "This is the month August",
-    "september": "This is the month September",
-    "october": "This is the month October",
-    "november": "This is the month November",
-    "december": "This is the month December",
+    "january": "Eat no meat for the entire month!",
+    "February": "Walk for at least 20 minutes a day",
+    "march": "Learn Django for at least 20 minutes a day",
+    "april": "Eat no meat for the entire month!",
+    "may": "Walk for at least 20 minutes a day",
+    "june": "Learn Django for at least 20 minutes a day",
+    "july": "Eat no meat for the entire month!",
+    "august": "Walk for at least 20 minutes a day",
+    "september": "Learn Django for at least 20 minutes a day",
+    "october": "Eat no meat for the entire month!",
+    "november": "Walk for at least 20 minutes a day",
+    "december": "Learn Django for at least 20 minutes a day",
 }
 
 
