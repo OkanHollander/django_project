@@ -1,9 +1,51 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     My Blog
-{% endblock title %}
+{% endblock title %} 
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "blog/index.css" %}">
+{% endblock css_files %}
 
-{% block content %}
-    <h1>Welcome to my blog!</h1>
+{%block content %}
+<header id="main-navigation">
+  <h1><a href="">Okan's Blog</a></h1>
+  <nav>
+    <a href="">All Posts</a>
+  </nav>
+</header>
+
+<section id="welcome">
+  <header>
+    <img src="" alt="Okan - The author of this blog" />
+    <h2>Welcome to Okan's blog!</h2>
+  </header>
+  <p>Hi I am Okan and This is a Django Project</p>
+</section>
+<section id="latest-posts">
+  <h2>My Latest Thoughts</h2>
+  <ul>
+    <li>
+      <article class="post">
+        <a href="">
+          <img src="" alt="Mountain Hiking" />
+          <div class="post__content">
+            <h3>Mountain Hiking</h3>
+            <p>
+              Mountain hiking is a great way to get to the top of the mountain.
+            </p>
+          </div>
+        </a>
+      </article>
+    </li>
+  </ul>
+</section>
+
+<section id="about">
+  <h2>About</h2>
+  <p>Okan's blog is a place where I share my thoughts and experiences.</p>
+  <p>My goal is to create something great for you.</p>
+</section>
+
 {% endblock content %}
