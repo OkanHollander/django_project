@@ -2,7 +2,7 @@ from django.shortcuts import render
 from datetime import date
 
 # adding dummy data
-posts = [
+dummy_posts = [
     {
         "slug": "hike-in-the-mountains",
         "image": "mountains.jpg",
@@ -72,7 +72,7 @@ posts = [
 def index(request):
     return render(request, "blog/index.html")
 
-def posts(request):
+def all_posts(request):
     return render(request, "blog/all-posts.html")
 
 def post_detail(request, slug):
