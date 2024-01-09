@@ -68,9 +68,16 @@ dummy_posts = [
     }
 ]
 
+def get_date(post):
+    return post["date"]
+
 # Create your views here.
 def index(request):
-    return render(request, "blog/index.html")
+    sorted_post = sorted(dummy_posts, key=get_date)
+    latest_posts = sorted_post[-3:]
+    return render(request, "blog/index.html", {
+        "latest_posts": latest_posts
+    })
 
 def all_posts(request):
     return render(request, "blog/all-posts.html")
