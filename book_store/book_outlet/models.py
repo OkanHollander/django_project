@@ -8,6 +8,12 @@ class Author(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
 
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+    def __str__(self):
+        return self.full_name()
+    
+
 
 class Book(models.Model):
     title = models.CharField(max_length=100)
@@ -20,10 +26,10 @@ class Book(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.rating})"
-    
+
     def get_absolute_url(self):
         return reverse("book-detail", args=[self.slug])
-    
+
     # def save(self, *args, **kwargs):
     #     self.slug = slugify(self.title)
     #     super().save(*args, **kwargs)
