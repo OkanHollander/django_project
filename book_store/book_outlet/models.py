@@ -9,6 +9,18 @@ class Address(models.Model):
     street = models.CharField(max_length=100)
     postal_code = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.street} {self.postal_code} {self.city}"
+    
+    class Meta:
+        verbose_name = "Address"
+        verbose_name_plural = "Address Entries"
+        ordering = ["street", "postal_code", "city"]
+        unique_together = ("street", "postal_code", "city")
+
+
+
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -18,6 +30,11 @@ class Author(models.Model):
         return f"{self.first_name} {self.last_name}"
     def __str__(self):
         return self.full_name()
+    
+    class Meta:
+        verbose_name = "Author"
+        verbose_name_plural = "Authors"
+        ordering = ["first_name", "last_name"]
 
 class Book(models.Model):
     title = models.CharField(max_length=100)
@@ -37,3 +54,7 @@ class Book(models.Model):
     # def save(self, *args, **kwargs):
     #     self.slug = slugify(self.title)
     #     super().save(*args, **kwargs)
+    class Meta:
+        verbose_name = "Book"
+        verbose_name_plural = "Books"
+        ordering = ["title", "rating", "author", "is_bestselling"]
