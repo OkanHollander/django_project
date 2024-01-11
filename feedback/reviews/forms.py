@@ -14,4 +14,17 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ["user_name", "review_text", "rating"]
-        
+        labels = {
+            "user_name": "Your Name",
+            "review_text": "Your Feedback",
+            "rating": "Your Rating",
+        }
+        error_messages = {
+            "username": {
+                "required": "Please enter your name.",
+                "max_length": "Your name must be 100 characters or less."
+            }
+        }
+        widgets = {
+            "review_text": forms.Textarea(attrs={"class": "form-control"}),
+        }
