@@ -29,6 +29,29 @@ class ThankYouView(TemplateView):
         context["message"] = "Thank you for your review!"
         return context
     
+class ReviewListView(TemplateView):
+    template_name = "reviews/review_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        reviews = Review.objects.all()
+        context["reviews"] = reviews
+        return context
+
+
+class SingleReviewView(TemplateView):
+    template_name = "reviews/single_review.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        review_id = self.kwargs.get("id")
+        selected_review = Review.objects.get(id=review_id)
+        context["review"] = selected_review
+        return context
+
+
+
+
 
 # def reviewer(request):
 #     if request.method == "POST":
