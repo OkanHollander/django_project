@@ -6,7 +6,6 @@ Your Review
 {% endblock title %}
 
 {% block content %}
-  <body>
     <form action="/" method="POST">
         {% csrf_token %}
         {% for field in form %}
