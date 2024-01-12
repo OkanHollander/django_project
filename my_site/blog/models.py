@@ -33,7 +33,7 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True ,related_name="posts")
     slug = models.SlugField(unique=True, default="",blank=True, null=False, db_index=True)
-    image_name = models.CharField(max_length=100, null=True)
+    image = models.ImageField(upload_to="posts", null=True)
     tag = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
@@ -44,5 +44,3 @@ class Post(models.Model):
         verbose_name_plural = "Posts"
         ordering = ["title", "author", "slug"]
         unique_together = ("title", "author", "slug")
-
-
