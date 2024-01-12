@@ -16,7 +16,8 @@ class ProfilesFiew(ListView):
     model = UserProfile
     template_name = 'profiles/user_profiles.html'
     context_object_name = 'profiles'
-    
+
+
 
 
     # def get(self, request):
