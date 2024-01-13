@@ -44,3 +44,9 @@ class Post(models.Model):
         verbose_name_plural = "Posts"
         ordering = ["title", "author", "slug"]
         unique_together = ("title", "author", "slug")
+
+class Comment(models.Model):
+    user_name = models.CharField(max_length=100)
+    user_email = models.EmailField(max_length=100)
+    content = models.TextField(max_length=400)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, related_name="comments")

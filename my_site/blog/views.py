@@ -1,8 +1,13 @@
 from typing import Any
 from django.db.models.query import QuerySet
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render
+from django.views.generic import ListView
+from django.views import View
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 from .models import Post
+from .forms import CommentForm
 
 # Create your views here.
 class StartingPageView(ListView):
@@ -23,12 +28,27 @@ class AllPostsView(ListView):
     context_object_name = "all_posts"
 
 
-class SinglePostView(DetailView):
-    template_name = "blog/post-detail.html"
-    model = Post
-    slug_field = "slug"
+class SinglePostView(View):
+    def get(self, request, slug):
+        post = Post.objects.get(slug=slug)
+        context = {
+            "post": post,
+            "comments": CommentForm(),
+            "tags": post.tag.all(),}
+        return render(request, "blog/post-detail.html", context=context)
 
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["tags"] = self.object.tag.all()
-        return context
+    def post(self, request, slug):
+        comment_form = CommentForm(request.POST)
+        post = Post.objects.get(slug=slug)
+
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return HttpResponseRedirect(reverse("post-detail", args=[slug]))
+
+        context = {
+            "post": post,
+            "comments": comment_form,
+            "tags": post.tag.all(),}
+        return render(request, "blog/post-detail.html", context=context)
