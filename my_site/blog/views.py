@@ -9,6 +9,7 @@ from django.urls import reverse
 from .models import Post
 from .forms import CommentForm
 
+
 # Create your views here.
 class StartingPageView(ListView):
     template_name = "blog/index.html"
@@ -20,7 +21,8 @@ class StartingPageView(ListView):
         queryset = super().get_queryset()
         data = queryset[:3]
         return data
-    
+
+
 class AllPostsView(ListView):
     template_name = "blog/all-posts.html"
     model = Post
@@ -33,8 +35,10 @@ class SinglePostView(View):
         post = Post.objects.get(slug=slug)
         context = {
             "post": post,
-            "comments": CommentForm(),
-            "tags": post.tag.all(),}
+            "comment_form": CommentForm(),
+            "tags": post.tag.all(),
+            "comments": post.comments.all().order_by("-id"),
+        }
         return render(request, "blog/post-detail.html", context=context)
 
     def post(self, request, slug):
@@ -49,6 +53,8 @@ class SinglePostView(View):
 
         context = {
             "post": post,
-            "comments": comment_form,
-            "tags": post.tag.all(),}
+            "comment_form": comment_form,
+            "tags": post.tag.all(),
+            "comments": post.comments.all().order_by("-id"),
+        }
         return render(request, "blog/post-detail.html", context=context)
